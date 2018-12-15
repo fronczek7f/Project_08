@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Project_08</string>
+    <string name="btn_simple">Simple</string>
+    <string name="btn_simple_list">Simple List</string>
+    <string name="btn_list_radio">List with Radio</string>
+    <string name="btn_list_checkbox">List with CheckBoxes</string>
+    <string name="btn_custom">Custom</string>
+</resources>
