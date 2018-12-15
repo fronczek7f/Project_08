@@ -12,6 +12,7 @@
     <string name="dialog_message">Dialog message</string>
     <string name="dialog_checked">Checked</string>
     <string name="dialog_unchecked">Unchecked</string>
+    <string name="dialog_selected">Selected item:</string>
     <string-array name="dialog_options">
         <item>Yes</item>
         <item>No</item>

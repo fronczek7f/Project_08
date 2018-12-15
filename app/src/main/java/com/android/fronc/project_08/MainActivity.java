@@ -15,7 +15,9 @@ public class MainActivity extends AppCompatActivity {
     private Resources resources;
     private ArrayList mSelectedItems;
     private String[] dialogOptions;
+    private boolean[] dialogOptionsChecked;
     private String textToast = "";
+    int arrayLength = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,16 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
         resources = getResources();
         dialogOptions = resources.getStringArray(R.array.dialog_options);
+        arrayLength = dialogOptions.length;
+        dialogOptionsChecked = new boolean[arrayLength];
+
+        for (int i = 0; i < arrayLength; i++) {
+            if (i % 2 == 0) {
+                dialogOptionsChecked[i] = true;
+            } else {
+                dialogOptionsChecked[i] = false;
+            }
+        }
     }
 
     public void onClickSimple(View view) {
@@ -91,24 +103,53 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickListRadio(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
+        builder.setTitle(R.string.dialog_title);
+        builder.setSingleChoiceItems(R.array.dialog_options, 1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                textToast = resources.getString(R.string.dialog_selected) + " " + dialogOptions[which];
+                Toast.makeText(getApplicationContext(), textToast, Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setPositiveButton(R.string.btn_yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(), R.string.btn_yes, Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton(R.string.btn_no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(), R.string.btn_no, Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNeutralButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(), R.string.btn_cancel, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
-    // TODO: Dodac checkboxy jako zaznaczone min. 2
     public void onClickListCheckbox(View view) {
         mSelectedItems = new ArrayList();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle(R.string.dialog_title);
-        builder.setMultiChoiceItems(R.array.dialog_options, null,
+        builder.setMultiChoiceItems(R.array.dialog_options, dialogOptionsChecked,
             new DialogInterface.OnMultiChoiceClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                    if (isChecked) {
+                    if (isChecked && dialogOptionsChecked[which]) {
                         textToast = resources.getString(R.string.dialog_checked) + " " + dialogOptions[which];
                         Toast.makeText(getApplicationContext(), textToast, Toast.LENGTH_SHORT).show();
                         mSelectedItems.add(which);
-                    } else if (mSelectedItems.contains(which)) {
+                    } else if (mSelectedItems.contains(which) || !dialogOptionsChecked[which]) {
                         textToast = resources.getString(R.string.dialog_unchecked) + " " + dialogOptions[which];
                         Toast.makeText(getApplicationContext(), textToast, Toast.LENGTH_SHORT).show();
                         mSelectedItems.remove(Integer.valueOf(which));
