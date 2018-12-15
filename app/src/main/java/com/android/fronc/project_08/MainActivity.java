@@ -5,7 +5,9 @@ import android.content.res.Resources;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -160,6 +162,38 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getApplicationContext(), R.string.btn_yes, Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton(R.string.btn_no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(), R.string.btn_no, Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNeutralButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(), R.string.btn_cancel, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public void onClickCustom(View view) {
+        LayoutInflater li = LayoutInflater.from(this);
+        View custom_dialog = li.inflate(R.layout.custom_dialog, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setView(custom_dialog);
+        final EditText nameInput = (EditText) custom_dialog.findViewById(R.id.name);
+        final EditText passwordInput = (EditText) custom_dialog.findViewById(R.id.password);
+
+        builder.setPositiveButton(R.string.btn_yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                String result = nameInput.getText().toString() + "\n" + passwordInput.getText().toString();
+                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton(R.string.btn_no, new DialogInterface.OnClickListener() {
