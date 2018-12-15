@@ -5,4 +5,16 @@
     <string name="btn_list_radio">List with Radio</string>
     <string name="btn_list_checkbox">List with CheckBoxes</string>
     <string name="btn_custom">Custom</string>
+    <string name="btn_yes">Yes</string>
+    <string name="btn_no">No</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="dialog_title">Dialog title</string>
+    <string name="dialog_message">Dialog message</string>
+    <string name="dialog_checked">Checked</string>
+    <string name="dialog_unchecked">Unchecked</string>
+    <string-array name="dialog_options">
+        <item>Yes</item>
+        <item>No</item>
+        <item>Cancel</item>
+    </string-array>
 </resources>
